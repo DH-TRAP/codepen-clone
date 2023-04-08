@@ -1,9 +1,11 @@
 import { useEffect, useState } from 'react'
 
-const PREFIX = 'codepen-clone-'
+const PREFIX = 'codepen-clone-';
+const SUFFIX = '-v-0.1.0';
 
 export default function useLocalStorage(key, initialValue) {
-  const prefixedKey = PREFIX + key
+  // setting a unique key with app name and version.
+  const prefixedKey = PREFIX + key + SUFFIX;
 
   const [value, setValue] = useState(() => {
     const jsonValue = localStorage.getItem(prefixedKey)

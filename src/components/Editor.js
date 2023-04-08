@@ -6,9 +6,10 @@ import 'codemirror/mode/xml/xml'
 import 'codemirror/mode/javascript/javascript'
 import 'codemirror/mode/css/css'
 import { Controlled as ControlledEditor } from 'react-codemirror2'
-// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-// import { faCompressAlt, faExpandAlt } from '@fortawesome/free-solid-svg-icons'
+import minimize from "../icons/minimize.svg";
+import maximize from "../icons/maximize.svg";
 
+let toggle = 1;
 export default function Editor(props) {
   const {
     language,
@@ -21,6 +22,11 @@ export default function Editor(props) {
   function handleChange(editor, data, value) {
     onChange(value)
   }
+  const fold = () => {
+    toggle = !toggle;
+    console.log(toggle)
+    setOpen(prevOpen => !prevOpen)
+  }
 
   return (
     <div className={`editor-container ${open ? '' : 'collapsed'}`}>
@@ -29,9 +35,9 @@ export default function Editor(props) {
         <button
           type="button"
           className="expand-collapse-btn"
-          onClick={() => setOpen(prevOpen => !prevOpen)}
+          onClick={fold}
         >
-          {/* <FontAwesomeIcon icon={open ? faCompressAlt : faExpandAlt} /> */}
+          <img src={toggle ? minimize : maximize} alt='icon' />
         </button>
       </div>
       <ControlledEditor
