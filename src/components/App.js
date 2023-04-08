@@ -10,7 +10,7 @@ import layoutBlack from "../icons/layout-black.svg";
 import sun from "../icons/sun.svg";
 import moon from "../icons/moon.svg";
 
-let layout, mode;
+let mode = 1;
 
 function App() {
   // Declaring states to store user's code in local storage.
@@ -18,6 +18,7 @@ function App() {
   const [css, setCss] = useLocalStorage('css', '')
   const [js, setJs] = useLocalStorage('js', '')
   const [srcDoc, setSrcDoc] = useState('')
+  const [toggle, setToggle] = useState('');
   // Combining html, css and js in one state after a delay.
   useEffect(() => {
     const timeout = setTimeout(() => {
@@ -32,18 +33,34 @@ function App() {
     return () => clearTimeout(timeout)
   }, [html, css, js])
 
+  const reset = () =>{
+    setHtml('');
+    setCss('');
+    setJs('');
+  }
+  
+  const changeLayout = () =>{
+    layout++;
+  }
+
+  const toggleMode = () =>{
+    mode = !mode;
+    console.log(mode);
+    setToggle(mode);
+  }
+
   return (
-    <>
+    <div style={{backgroundColor:mode?"black":"white"}}>
       <header>
         <div className='menu-bar'>
-          <h2> Untitled <img className='pencil' src={penWhite} /></h2>
+          <h2 style={{color: mode?"white":"black"}}> Untitled <img className='pencil' src={mode? penWhite:penBlack} /></h2>
           <div>
-            <button type='submit'><img className='reset' src={resetWhite} /></button>
-            <button ><img className='layout' src={layoutWhite} /></button>
-            <button><img className='mode' src={sun} /></button>
+            <button type='submit' onClick={reset}><img className='reset' src={mode?resetWhite:resetBlack} /></button>
+            <button onClick={changeLayout}><img className='layout' src={mode?layoutWhite:layoutBlack} /></button>
+            <button onClick={toggleMode}><img className='mode' src={mode ? sun : moon} alt="icon"/></button>
           </div>
         </div>
-        <p>short description</p>
+        <p style={{color: mode?"white":"black"}}>short description</p>
       </header>
       <div className="editors pane">
         <Editor
@@ -51,21 +68,24 @@ function App() {
           language="xml"
           value={html}
           onChange={setHtml}
+          mode={mode}
         />
         <Editor
           displayName="CSS"
           language="css"
           value={css}
           onChange={setCss}
+          mode={mode}
         />
         <Editor
           displayName="JS"
           language="javascript"
           value={js}
           onChange={setJs}
+          mode={mode}
         />
       </div>
-      <div className="output pane">
+      <div className="output pane" style={{borderTop: mode?'1px solid white':'1px solid black'}}>
         <iframe
           srcDoc={srcDoc}
           title="output"
@@ -75,7 +95,7 @@ function App() {
           height="100%"
         />
       </div>
-    </>
+    </div>
   )
 }
 
