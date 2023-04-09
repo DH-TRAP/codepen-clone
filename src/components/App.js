@@ -11,6 +11,7 @@ import sun from "../icons/sun.svg";
 import moon from "../icons/moon.svg";
 
 let mode = 1;
+let layout = 0;
 
 function App() {
   // Declaring states to store user's code in local storage.
@@ -40,12 +41,12 @@ function App() {
   }
   
   const changeLayout = () =>{
-    layout++;
+    layout = !layout;
+    setToggle(layout);
   }
 
   const toggleMode = () =>{
     mode = !mode;
-    console.log(mode);
     setToggle(mode);
   }
 
@@ -62,38 +63,40 @@ function App() {
         </div>
         <p style={{color: mode?"white":"black"}}>short description</p>
       </header>
-      <div className="editors pane">
-        <Editor
-          displayName="HTML"
-          language="xml"
-          value={html}
-          onChange={setHtml}
-          mode={mode}
-        />
-        <Editor
-          displayName="CSS"
-          language="css"
-          value={css}
-          onChange={setCss}
-          mode={mode}
-        />
-        <Editor
-          displayName="JS"
-          language="javascript"
-          value={js}
-          onChange={setJs}
-          mode={mode}
-        />
-      </div>
-      <div className="output pane" style={{borderTop: mode?'1px solid white':'1px solid black'}}>
-        <iframe
-          srcDoc={srcDoc}
-          title="output"
-          sandbox="allow-scripts"
-          frameBorder="0"
-          width="100%"
-          height="100%"
-        />
+      <div  style={{display:'flex', flexDirection:layout?'row':'column'}}>
+        <div className="editors pane" style={{display:'flex', flexDirection:layout?'column':'row', height:layout?'89vh':'38.5vh', width:layout?'30vw':'100vw'}}>
+          <Editor
+            displayName="HTML"
+            language="xml"
+            value={html}
+            onChange={setHtml}
+            mode={mode}
+          />
+          <Editor
+            displayName="CSS"
+            language="css"
+            value={css}
+            onChange={setCss}
+            mode={mode}
+          />
+          <Editor
+            displayName="JS"
+            language="javascript"
+            value={js}
+            onChange={setJs}
+            mode={mode}
+          />
+        </div>
+        <div className="output pane" style={{border: mode?'.1px solid white':'.1px solid black', height: layout?'87vh':'49vh', width: layout?'69.5vw':'98vw', margin:'0 1vw 0.7vw 1vw'}}>
+          <iframe
+            srcDoc={srcDoc}
+            title="output"
+            sandbox="allow-scripts"
+            frameBorder="0"
+            width="100%"
+            height="100%"
+          />
+        </div>
       </div>
     </div>
   )
