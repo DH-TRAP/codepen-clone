@@ -19,7 +19,8 @@ function App() {
   const [css, setCss] = useLocalStorage('css', '')
   const [js, setJs] = useLocalStorage('js', '')
   const [srcDoc, setSrcDoc] = useState('')
-  const [toggle, setToggle] = useState('');
+  const [changeMode, setChangeMode] = useState('');
+  const [toggleLayout, setToggleLayout] = useState('');
   // Combining html, css and js in one state after a delay.
   useEffect(() => {
     const timeout = setTimeout(() => {
@@ -42,12 +43,12 @@ function App() {
   
   const changeLayout = () =>{
     layout = !layout;
-    setToggle(layout);
+    setToggleLayout(layout);
   }
 
   const toggleMode = () =>{
     mode = !mode;
-    setToggle(mode);
+    setChangeMode(mode);
   }
 
   return (
