@@ -31,14 +31,14 @@ export default function Editor(props) {
 
   return (
     <div className={`editor-container ${open ? '' : 'collapsed'}`}>
-      <div className="editor-title" style={{color:props.mode?'white':'black',}}>
+      <div className="editor-title" style={{ color: props.mode ? 'white' : 'black', }}>
         {displayName}
         <button
           type="button"
           className="fold-btn"
           onClick={fold}
         >
-          <img src={(props.mode&&toggleFold)? minimizeWhite:null || (props.mode&&!toggleFold)? maximizeWhite:null || (!props.mode&&toggleFold)? minimizeBlack:null || (!props.mode&&!toggleFold)? maximizeBlack:null} alt='icon' />
+          <img src={(props.mode && toggleFold) ? minimizeWhite : (props.mode && !toggleFold) ? maximizeWhite : (!props.mode && toggleFold) ? minimizeBlack : (!props.mode && !toggleFold) ? maximizeBlack : null} alt='icon' />
         </button>
       </div>
       <ControlledEditor
@@ -49,7 +49,7 @@ export default function Editor(props) {
           lineWrapping: true,
           lint: true,
           mode: language,
-          theme: props.mode?'moxer':'neat',
+          theme: props.mode ? 'moxer' : 'neat',
           lineNumbers: true
         }}
       />

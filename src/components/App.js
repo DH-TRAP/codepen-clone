@@ -19,8 +19,8 @@ function App() {
   const [css, setCss] = useLocalStorage('css', '')
   const [js, setJs] = useLocalStorage('js', '')
   const [srcDoc, setSrcDoc] = useState('')
-  const [changeMode, setChangeMode] = useState('');
-  const [toggleLayout, setToggleLayout] = useState('');
+  const [toogleMode, setToogleMode] = useState('');
+  const [ChangeLayout, setChangeLayout] = useState('');
   // Combining html, css and js in one state after a delay.
   useEffect(() => {
     const timeout = setTimeout(() => {
@@ -35,37 +35,37 @@ function App() {
     return () => clearTimeout(timeout)
   }, [html, css, js])
 
-  const reset = () =>{
+  const reset = () => {
     setHtml('');
     setCss('');
     setJs('');
   }
-  
-  const changeLayout = () =>{
+
+  const changeLayout = () => {
     layout = !layout;
-    setToggleLayout(layout);
+    setChangeLayout(layout);
   }
 
-  const toggleMode = () =>{
+  const toggleMode = () => {
     mode = !mode;
-    setChangeMode(mode);
+    setToogleMode(mode);
   }
 
   return (
-    <div style={{backgroundColor:mode?"black":"white"}}>
+    <div style={{ backgroundColor: mode ? "black" : "white" }}>
       <header>
         <div className='menu-bar'>
-          <h2 style={{color: mode?"white":"black"}}> Untitled <img className='pencil' src={mode? penWhite:penBlack} /></h2>
+          <h2 style={{ color: mode ? "white" : "black" }}> Untitled <img className='pencil' src={mode ? penWhite : penBlack} /></h2>
           <div>
-            <button type='submit' onClick={reset}><img className='reset' src={mode?resetWhite:resetBlack} /></button>
-            <button onClick={changeLayout}><img className='layout' src={mode?layoutWhite:layoutBlack} /></button>
-            <button onClick={toggleMode}><img className='mode' src={mode ? sun : moon} alt="icon"/></button>
+            <button type='submit' onClick={reset}><img className='reset' src={mode ? resetWhite : resetBlack} /></button>
+            <button onClick={changeLayout}><img className='layout' src={mode ? layoutWhite : layoutBlack} /></button>
+            <button onClick={toggleMode}><img className='mode' src={mode ? sun : moon} alt="icon" /></button>
           </div>
         </div>
-        <p style={{color: mode?"white":"black"}}>short description</p>
+        <p style={{ color: mode ? "white" : "black" }}>short description</p>
       </header>
-      <div  style={{display:'flex', flexDirection:layout?'row':'column'}}>
-        <div className="editors pane" style={{display:'flex', flexDirection:layout?'column':'row', height:layout?'89vh':'38.5vh', width:layout?'30vw':'100vw'}}>
+      <div style={{ display: 'flex', flexDirection: layout ? 'row' : 'column' }}>
+        <div className="editors pane" style={{ display: 'flex', flexDirection: layout ? 'column' : 'row', height: layout ? '89vh' : '38.5vh', width: layout ? '30vw' : '99.5vw' }}>
           <Editor
             displayName="HTML"
             language="xml"
@@ -88,7 +88,7 @@ function App() {
             mode={mode}
           />
         </div>
-        <div className="output pane" style={{border: mode?'.1px solid white':'.1px solid black', height: layout?'87vh':'49vh', width: layout?'69.5vw':'98vw', margin:'0 1vw 0.7vw 1vw'}}>
+        <div className="output pane" style={{ border: mode ? '.1px solid white' : '.1px solid black', height: layout ? '87vh' : '48.5vh', width: layout ? '69.5vw' : '98vw', margin: '0 1vw 0.7vw 1vw' }}>
           <iframe
             srcDoc={srcDoc}
             title="output"
