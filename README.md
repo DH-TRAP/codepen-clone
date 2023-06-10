@@ -9,7 +9,7 @@ A clone of the famous website codepen where I have implemented features such as 
 * Function to reset Editors
 * Function to Change view/layout.
 
-## Structure
+## Component Structure
 * Header - Functionalities.
 * Editors - Enter Source Code.
 * Output - Live output with small delay.
